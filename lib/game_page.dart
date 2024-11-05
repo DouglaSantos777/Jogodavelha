@@ -1,5 +1,6 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'app_database.dart'; 
+import 'app_database.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
@@ -39,6 +40,7 @@ class _GamePageState extends State<GamePage> {
             _headerText(),
             _gameContainer(),
             _restartButton(),
+            _scoreboard(), // Novo widget para exibir o placar
           ],
         ),
       ),
@@ -49,7 +51,7 @@ class _GamePageState extends State<GamePage> {
     return Column(
       children: [
         const Text(
-          "Rhaast Vs Kayn",
+          "Jogo Da Velha",
           style: TextStyle(
             color: Colors.red,
             fontSize: 40,
@@ -167,8 +169,9 @@ class _GamePageState extends State<GamePage> {
     }
 
     if (draw) {
-      showGameOverMessage("Draw");
+      showGameOverMessage("Empate");
       gameEnd = true;
+      _saveGameRecord("Empate");
     }
   }
 
@@ -188,12 +191,44 @@ class _GamePageState extends State<GamePage> {
   }
 
   Future<void> _saveGameRecord(String winner) async {
+    final random = Random();
     final record = GameRecord(
-      id: 1,
+      id: random.nextInt(1000000), // Gera um ID aleatório entre 0 e 999999
       playerX: PLAYER_X,
       playerY: PLAYER_Y,
       winner: winner,
     );
     await _database.insertGameRecord(record);
+  }
+
+ Widget _scoreboard() {
+    return FutureBuilder<List<GameRecord>>(
+      future: _database.getAllGameRecords(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Erro: ${snapshot.error}');
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Text('Nenhuma partida registrada');
+        } else {
+          final records = snapshot.data!;
+          int playerXWins = records.where((record) => record.winner == PLAYER_X).length;
+          int playerYWins = records.where((record) => record.winner == PLAYER_Y).length;
+          int draws = records.where((record) => record.winner == "Empate").length;
+
+          return Container(
+            margin: const EdgeInsets.only(top:8),
+            child: Column(       
+              children: [
+                Text("Vitórias de $PLAYER_X: $playerXWins", style: const TextStyle(fontSize: 18)),
+                Text("Vitórias de $PLAYER_Y: $playerYWins", style: const TextStyle(fontSize: 18)),
+                Text("Empates: $draws", style: const TextStyle(fontSize: 18)),
+              ],
+            ),
+          );
+        }
+      },
+    );
   }
 }
