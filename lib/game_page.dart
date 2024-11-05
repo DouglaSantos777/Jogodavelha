@@ -49,7 +49,7 @@ class _GamePageState extends State<GamePage> {
     return Column(
       children: [
         const Text(
-          "Rhaast Vs Kayn",
+          "Jogo da Velha",
           style: TextStyle(
             color: Colors.red,
             fontSize: 40,
@@ -167,7 +167,7 @@ class _GamePageState extends State<GamePage> {
     }
 
     if (draw) {
-      showGameOverMessage("Draw");
+      showGameOverMessage("Empate");
       gameEnd = true;
     }
   }
