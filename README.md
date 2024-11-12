@@ -1,16 +1,7 @@
-# jogodavelha
+# Rhaast VS Kayn (Jogo da Velha)
 
-A new Flutter project.
+Jogo da velha com feiot em Flutter com temática de League of legends, especificamente o personagem Kayn.
 
-## Getting Started
+Foi utilizado o drift para armazenar os dados do histórico das partidas localmente.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Captura de tela de 2024-11-11 23-00-11](https://github.com/user-attachments/assets/23308881-2db4-41a1-8b47-6afd8c2d79ee)
