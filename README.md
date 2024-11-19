@@ -1,6 +1,6 @@
 # Rhaast VS Kayn (Jogo da Velha)
 
-Jogo da velha com feiot em Flutter com temática de League of legends, especificamente o personagem Kayn.
+Jogo da velha feito em Flutter com temática de League of legends, especificamente o personagem Kayn.
 
 Foi utilizado o drift para armazenar os dados do histórico das partidas localmente.
 
